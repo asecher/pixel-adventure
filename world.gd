@@ -3,20 +3,25 @@ extends Node2D
 const LEVEL_1 := preload("res://scenes/levels/level_1.tscn")
 const LEVEL_3 := preload("res://scenes/levels/level_3.tscn")
 const LEVEL_6 := preload("res://scenes/levels/level_6.tscn")
+const LEVEL_7 := preload("res://scenes/levels/level_7.tscn")
 
 @onready var previous_button: TextureButton = $"../Navigation/MarginContainer/HBoxContainer/PreviousButton"
 @onready var next_button: TextureButton = $"../Navigation/MarginContainer/HBoxContainer/NextButton"
+@onready var camera_2d: Camera2D = $"../Camera2D"
 
 var current_level_idx := 0
 var current_level: Node
 var levels := [
 	LEVEL_1,
 	LEVEL_3,
-	LEVEL_6
+	LEVEL_6,
+	LEVEL_7
 ]
 
 func _ready() -> void:
-	current_level = LEVEL_1.instantiate()
+	GameManager.camera = camera_2d
+	
+	current_level = LEVEL_7.instantiate()
 	previous_button.visible = false
 	add_child(current_level)
 	

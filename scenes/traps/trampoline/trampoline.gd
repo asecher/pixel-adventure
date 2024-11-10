@@ -5,5 +5,6 @@ class_name Trampoline
 
 func activate(object: Node) -> void:
 	animated_sprite_2d.play("jump")
+	GameManager.camera.apply_shake()
 	if object is Player: 
 		object.launch(Vector2(object.velocity.x, -1175))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://gm2dtrnksxip"]
+[gd_scene load_steps=14 format=3 uid="uid://gm2dtrnksxip"]
 
 [ext_resource type="Texture2D" uid="uid://ben5ljt2dijlf" path="res://assets/levels/backgrounds/Brown.png" id="1_dg70d"]
 [ext_resource type="Script" path="res://parallax_background.gd" id="1_l8bgn"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://hh8dnie8bc5l" path="res://assets/ui/buttons/Next.png" id="10_ciun2"]
 [ext_resource type="Script" path="res://world.gd" id="10_vea22"]
 [ext_resource type="Texture2D" uid="uid://8n45juik7aoa" path="res://assets/ui/buttons/Restart.png" id="11_onyd0"]
+[ext_resource type="Script" path="res://camera_2d.gd" id="13_vt1cs"]
 
 [node name="Main" type="Node"]
 
@@ -76,6 +77,10 @@ texture_normal = ExtResource("11_onyd0")
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("10_vea22")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+script = ExtResource("13_vt1cs")
 
 [connection signal="pressed" from="Navigation/MarginContainer/HBoxContainer/PreviousButton" to="World" method="_on_previous_button_pressed"]
 [connection signal="pressed" from="Navigation/MarginContainer/HBoxContainer/NextButton" to="World" method="_on_next_button_pressed"]

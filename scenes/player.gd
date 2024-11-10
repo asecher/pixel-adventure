@@ -87,7 +87,12 @@ func handle_collisions() -> void:
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
+		var normal = collision.get_normal()
 		
-		if collider is Trampoline:
+		if collider is Trampoline and normal.y == -1:
 			collider.activate(self)
 			break
+		
+		if collider is AnimatableBody2D and collider.get_parent() is BrownPlatform and normal.y == -1:
+			var platform = collider.get_parent()
+			platform.has_riders = true
