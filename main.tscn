@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://gm2dtrnksxip"]
+
+[ext_resource type="Texture2D" uid="uid://ben5ljt2dijlf" path="res://assets/levels/backgrounds/Brown.png" id="1_dg70d"]
+[ext_resource type="Script" path="res://parallax_background.gd" id="1_l8bgn"]
+[ext_resource type="Texture2D" uid="uid://bb6ms74uw8tj" path="res://assets/levels/backgrounds/Blue.png" id="3_2pmye"]
+[ext_resource type="Texture2D" uid="uid://chfundo2cvphc" path="res://assets/levels/backgrounds/Gray.png" id="4_uon0v"]
+[ext_resource type="Texture2D" uid="uid://2xf1wg5esa7v" path="res://assets/levels/backgrounds/Green.png" id="5_3jps7"]
+[ext_resource type="Texture2D" uid="uid://87fxf6nb8aao" path="res://assets/levels/backgrounds/Pink.png" id="6_rq8bc"]
+[ext_resource type="Texture2D" uid="uid://bn4xmuwt4qs25" path="res://assets/levels/backgrounds/Purple.png" id="7_lj2c2"]
+[ext_resource type="Texture2D" uid="uid://c8uycii256n3o" path="res://assets/levels/backgrounds/Yellow.png" id="8_pdska"]
+[ext_resource type="Texture2D" uid="uid://bihy8ate2kvq5" path="res://assets/ui/buttons/Previous.png" id="9_axttq"]
+[ext_resource type="Texture2D" uid="uid://hh8dnie8bc5l" path="res://assets/ui/buttons/Next.png" id="10_ciun2"]
+[ext_resource type="Script" path="res://world.gd" id="10_vea22"]
+[ext_resource type="Texture2D" uid="uid://8n45juik7aoa" path="res://assets/ui/buttons/Restart.png" id="11_onyd0"]
+
+[node name="Main" type="Node"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("1_l8bgn")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(64, 64)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_filter = 1
+texture_repeat = 2
+texture = ExtResource("1_dg70d")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1024, 576)
+
+[node name="Backgrounds" type="ResourcePreloader" parent="ParallaxBackground"]
+resources = [PackedStringArray("Blue", "Brown", "Gray", "Green", "Pink", "Purple", "Yellow"), [ExtResource("3_2pmye"), ExtResource("1_dg70d"), ExtResource("4_uon0v"), ExtResource("5_3jps7"), ExtResource("6_rq8bc"), ExtResource("7_lj2c2"), ExtResource("8_pdska")]]
+
+[node name="Navigation" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="Navigation"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -174.0
+offset_right = -87.0
+offset_bottom = 52.0
+grow_horizontal = 0
+scale = Vector2(2, 2)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Navigation/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="PreviousButton" type="TextureButton" parent="Navigation/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("9_axttq")
+
+[node name="NextButton" type="TextureButton" parent="Navigation/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("10_ciun2")
+
+[node name="RestartButton" type="TextureButton" parent="Navigation/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("11_onyd0")
+
+[node name="World" type="Node2D" parent="."]
+script = ExtResource("10_vea22")
+
+[connection signal="pressed" from="Navigation/MarginContainer/HBoxContainer/PreviousButton" to="World" method="_on_previous_button_pressed"]
+[connection signal="pressed" from="Navigation/MarginContainer/HBoxContainer/NextButton" to="World" method="_on_next_button_pressed"]
+[connection signal="pressed" from="Navigation/MarginContainer/HBoxContainer/RestartButton" to="World" method="_on_restart_button_pressed"]
