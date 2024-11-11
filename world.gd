@@ -1,57 +1,48 @@
 extends Node2D
 
-const LEVEL_1 := preload("res://scenes/levels/level_1.tscn")
-const LEVEL_3 := preload("res://scenes/levels/level_3.tscn")
-const LEVEL_6 := preload("res://scenes/levels/level_6.tscn")
-const LEVEL_7 := preload("res://scenes/levels/level_7.tscn")
-
 @onready var previous_button: TextureButton = $"../Navigation/MarginContainer/HBoxContainer/PreviousButton"
 @onready var next_button: TextureButton = $"../Navigation/MarginContainer/HBoxContainer/NextButton"
 @onready var camera_2d: Camera2D = $"../Camera2D"
+@onready var levels: ResourcePreloader = $Levels
 
-var current_level_idx := 0
-var current_level: Node
-var levels := [
-	LEVEL_1,
-	LEVEL_3,
-	LEVEL_6,
-	LEVEL_7
-]
+var current_level: Level
+var current_level_ressource_name: String
 
 func _ready() -> void:
 	GameManager.camera = camera_2d
-	
-	current_level = LEVEL_7.instantiate()
-	previous_button.visible = false
-	add_child(current_level)
+	load_level("level_1")
 	
 func _process(_delta: float) -> void:
-	if current_level_idx == 0:
+	if not current_level:
+		pass
+	
+	previous_button.visible = true if current_level.previous_level else false
+	if current_level.next_level and current_level.is_completed:
 		next_button.visible = true
-		previous_button.visible = false
-	elif current_level_idx == levels.size() - 1:
-		next_button.visible = false
-		previous_button.visible = true
 	else:
-		next_button.visible = true
-		previous_button.visible = true
+		next_button.visible = false
 
-func goto(index: int) -> void:
-	current_level.queue_free()
-	var level = levels[index].instantiate()
-	current_level = level
-	add_child(level)
+func load_level(level_name: String) -> void:
+	unload_current_level()
+	current_level = levels.get_resource(level_name).instantiate()
+	current_level_ressource_name = level_name
+	add_child(current_level)
+
+func unload_current_level() -> void:
+	if current_level:
+		current_level.queue_free()
+	current_level = null
 
 func previous() -> void:
-	current_level_idx -= 1
-	goto(current_level_idx)
+	if current_level and current_level.previous_level:
+		load_level(current_level.previous_level)
 
 func next() -> void:
-	current_level_idx += 1
-	goto(current_level_idx)
+	if current_level and current_level.next_level:
+		load_level(current_level.next_level)
 	
 func restart() -> void:
-	goto(current_level_idx)
+	load_level(current_level_ressource_name)
 
 
 func _on_restart_button_pressed() -> void:

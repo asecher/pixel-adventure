@@ -11,6 +11,7 @@
 
 [node name="Level 1" type="Node2D"]
 script = ExtResource("1_kknj2")
+next_level = "level_3"
 
 [node name="Map" type="Node2D" parent="."]
 
