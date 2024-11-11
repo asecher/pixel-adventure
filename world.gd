@@ -4,17 +4,19 @@ extends Node2D
 @onready var next_button: TextureButton = $"../Navigation/MarginContainer/HBoxContainer/NextButton"
 @onready var camera_2d: Camera2D = $"../Camera2D"
 @onready var levels: ResourcePreloader = $Levels
+@onready var transition: CanvasLayer = $"../TransitionLayer"
 
 var current_level: Level
-var current_level_ressource_name: String
+var current_level_ressource_name := "level_1"
 
 func _ready() -> void:
 	GameManager.camera = camera_2d
-	load_level("level_1")
+	current_level = levels.get_resource(current_level_ressource_name).instantiate()
+	add_child(current_level)
 	
 func _process(_delta: float) -> void:
 	if not current_level:
-		pass
+		return
 	
 	previous_button.visible = true if current_level.previous_level else false
 	if current_level.next_level and current_level.is_completed:
@@ -23,11 +25,15 @@ func _process(_delta: float) -> void:
 		next_button.visible = false
 
 func load_level(level_name: String) -> void:
+	print("loading level: ", level_name)
+
+	transition.fade_in()
+	await transition.finished
 	unload_current_level()
 	current_level = levels.get_resource(level_name).instantiate()
 	current_level_ressource_name = level_name
 	add_child(current_level)
-
+	
 func unload_current_level() -> void:
 	if current_level:
 		current_level.queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://gm2dtrnksxip"]
+[gd_scene load_steps=23 format=3 uid="uid://gm2dtrnksxip"]
 
 [ext_resource type="Texture2D" uid="uid://ben5ljt2dijlf" path="res://assets/levels/backgrounds/Brown.png" id="1_dg70d"]
 [ext_resource type="Script" path="res://parallax_background.gd" id="1_l8bgn"]
@@ -12,11 +12,102 @@
 [ext_resource type="Texture2D" uid="uid://hh8dnie8bc5l" path="res://assets/ui/buttons/Next.png" id="10_ciun2"]
 [ext_resource type="Script" path="res://world.gd" id="10_vea22"]
 [ext_resource type="Texture2D" uid="uid://8n45juik7aoa" path="res://assets/ui/buttons/Restart.png" id="11_onyd0"]
+[ext_resource type="Script" path="res://transition_layer.gd" id="12_5db5q"]
 [ext_resource type="PackedScene" uid="uid://bh3idt1my5ods" path="res://scenes/levels/level_1.tscn" id="13_0458u"]
 [ext_resource type="Script" path="res://camera_2d.gd" id="13_vt1cs"]
 [ext_resource type="PackedScene" uid="uid://ta4fpjnvki1l" path="res://scenes/levels/level_3.tscn" id="14_0x6lh"]
 [ext_resource type="PackedScene" uid="uid://dv8s0im5gq5y0" path="res://scenes/levels/level_6.tscn" id="15_6prg5"]
 [ext_resource type="PackedScene" uid="uid://50ekd5hbtnwj" path="res://scenes/levels/level_7.tscn" id="16_7bep4"]
+
+[sub_resource type="Animation" id="Animation_t5k14"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.129412, 0.121569, 0.188235, 0), Color(0.129412, 0.121569, 0.188235, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_0i7en"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.129412, 0.121569, 0.188235, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_8n3x5"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.129412, 0.121569, 0.188235, 1), Color(0.129412, 0.121569, 0.188235, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.533333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_62ei4"]
+_data = {
+"RESET": SubResource("Animation_0i7en"),
+"fade_in": SubResource("Animation_t5k14"),
+"fade_out": SubResource("Animation_8n3x5")
+}
 
 [node name="Main" type="Node"]
 
@@ -78,6 +169,23 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("11_onyd0")
+
+[node name="TransitionLayer" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("12_5db5q")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TransitionLayer"]
+libraries = {
+"": SubResource("AnimationLibrary_62ei4")
+}
+autoplay = "RESET"
+
+[node name="ColorRect" type="ColorRect" parent="TransitionLayer"]
+offset_left = -232.0
+offset_top = -248.0
+offset_right = 1240.0
+offset_bottom = 824.0
+color = Color(0.129412, 0.121569, 0.188235, 0)
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("10_vea22")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://bh3idt1my5ods"]
+[gd_scene load_steps=10 format=4 uid="uid://bh3idt1my5ods"]
 
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_kknj2"]
 [ext_resource type="TileSet" uid="uid://dtjfo6b58n2m4" path="res://ressources/tileset.tres" id="2_0pwed"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://bawqkl42qcwwi" path="res://ressources/fruits/orange.tres" id="6_6yicm"]
 [ext_resource type="Resource" uid="uid://7rdanol8ls6t" path="res://ressources/fruits/pineapple.tres" id="7_af2dc"]
 [ext_resource type="PackedScene" uid="uid://bg6a6ikyfvgjn" path="res://scenes/player.tscn" id="8_wk0cd"]
+[ext_resource type="FontFile" uid="uid://dbjl1e6kdxpl6" path="res://assets/fonts/PixelOperator8.ttf" id="9_76x6h"]
 
 [node name="Level 1" type="Node2D"]
 script = ExtResource("1_kknj2")
@@ -89,3 +90,13 @@ fruit_type = ExtResource("7_af2dc")
 
 [node name="Player" parent="." instance=ExtResource("8_wk0cd")]
 position = Vector2(514, 354)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 456.0
+offset_top = 496.0
+offset_right = 686.0
+offset_bottom = 512.0
+theme_override_colors/font_color = Color(0.551872, 0.306008, 0.222787, 1)
+theme_override_fonts/font = ExtResource("9_76x6h")
+theme_override_font_sizes/font_size = 16
+text = "Collect the fruits!"
