@@ -93,6 +93,9 @@ func handle_collisions() -> void:
 			collider.activate(self)
 			break
 		
-		if collider is AnimatableBody2D and collider.get_parent() is BrownPlatform and normal.y == -1:
+		if collider is FallingPlatform:
+			if normal.y == -1:
+				collider.activate()
+		elif collider is AnimatableBody2D and collider.get_parent() is BrownPlatform and normal.y == -1:
 			var platform = collider.get_parent()
 			platform.has_riders = true
