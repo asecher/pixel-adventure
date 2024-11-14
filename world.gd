@@ -7,7 +7,7 @@ extends Node2D
 @onready var transition: CanvasLayer = $"../TransitionLayer"
 
 var current_level: Level
-var current_level_ressource_name := "level_8"
+var current_level_ressource_name := "level_1"
 
 func _ready() -> void:
 	GameManager.camera = camera_2d
