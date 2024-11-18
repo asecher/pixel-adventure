@@ -22,3 +22,6 @@ func _process(delta: float) -> void:
 	
 func apply_shake() -> void:
 	shake_strength = RANDOM_SHAKE_STRENGTH
+
+func apply_trauma() -> void:
+	shake_strength = 8.0

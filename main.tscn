@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://gm2dtrnksxip"]
+[gd_scene load_steps=25 format=3 uid="uid://gm2dtrnksxip"]
 
 [ext_resource type="Texture2D" uid="uid://ben5ljt2dijlf" path="res://assets/levels/backgrounds/Brown.png" id="1_dg70d"]
 [ext_resource type="Script" path="res://parallax_background.gd" id="1_l8bgn"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dv8s0im5gq5y0" path="res://scenes/levels/level_6.tscn" id="15_6prg5"]
 [ext_resource type="PackedScene" uid="uid://50ekd5hbtnwj" path="res://scenes/levels/level_7.tscn" id="16_7bep4"]
 [ext_resource type="PackedScene" uid="uid://ev21ku5ud5n0" path="res://scenes/levels/level_8.tscn" id="18_2jirn"]
+[ext_resource type="PackedScene" uid="uid://ce77jk8nuikn" path="res://scenes/levels/level_9.tscn" id="19_qie6m"]
 
 [sub_resource type="Animation" id="Animation_0i7en"]
 length = 0.001
@@ -192,7 +193,7 @@ color = Color(0.129412, 0.121569, 0.188235, 0)
 script = ExtResource("10_vea22")
 
 [node name="Levels" type="ResourcePreloader" parent="World"]
-resources = [PackedStringArray("level_1", "level_3", "level_6", "level_7", "level_8"), [ExtResource("13_0458u"), ExtResource("14_0x6lh"), ExtResource("15_6prg5"), ExtResource("16_7bep4"), ExtResource("18_2jirn")]]
+resources = [PackedStringArray("level_1", "level_3", "level_6", "level_7", "level_8", "level_9"), [ExtResource("13_0458u"), ExtResource("14_0x6lh"), ExtResource("15_6prg5"), ExtResource("16_7bep4"), ExtResource("18_2jirn"), ExtResource("19_qie6m")]]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
